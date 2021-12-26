@@ -1,0 +1,212 @@
+<html>
+    <html lang="en">
+
+    <head>
+        <title>Top Rated Manga</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--STYLE-->
+        <style>
+            * {
+              box-sizing: border-box;
+            }
+            
+            body {
+              font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            /* Style the header */
+            header {
+              background-color: #666;
+              padding: 2px;
+              text-align: center;
+              font-size: 30px;
+              color: white;
+            }
+            
+            /* Create two columns/boxes that floats next to each other */
+            nav {
+              float: left;
+              width: 17%;
+              height: 320px; 
+              background: #ccc;
+              padding: 10px;
+            }   
+            
+            article {
+              float: right;
+              padding: 20px;
+              width:83%;
+              background-color: #f1f1f1;
+              height: 320px; 
+              font-size: 18px;
+            }
+            
+            /* Clear floats after the columns */
+            section:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+            
+            /* Style the footer */
+            footer {
+              background-color: #777;
+              padding: 10px;
+              text-align: center;
+              color: white;
+            }
+            .topHeader {
+              background-color: darkgray;
+              padding: 4px;
+              text-align: center;
+              font-size: 30px;
+              color: black;
+            }
+            
+            /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+            @media (max-width: 600px) {
+              nav, article {
+                width: 100%;
+                height: auto;
+              }
+            }
+
+            /*button CSS*/
+            #myBtn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 20px; /* Place the button at the bottom of the page */
+            right: 30px; /* Place the button 30px from the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: red; /* Set a background color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 10px; /* Rounded corners */
+            font-size: 18px; /* Increase font size */
+            }
+
+            #myBtn2 {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 80px; /* Place the button at the bottom of the page */
+            right: 30px; /* Place the button 30px from the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: hotpink; /* Set a background color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 10px; /* Rounded corners */
+            font-size: 18px; /* Increase font size */
+            }
+
+            #myBtn:hover {
+            background-color: rgb(44, 199, 199); /* Add a dark-grey background on hover */
+            }
+
+            #myBtn2:hover {
+            background-color: rgb(104, 238, 77); /* Add a dark-grey background on hover */
+            }
+            </style>
+        <!--API call and replace template text with JS-->
+        <script>
+
+
+            function load()
+            {
+                var request = new XMLHttpRequest();
+                request.open('GET', 'https://api.covidactnow.org/v2/counties.json?apiKey=7f9aa69f9653456fb9944e1ec3028542');
+                request.onreadystatechange = function () {
+                if (this.readyState === 4) 
+                    {
+                        var result = JSON.parse(this.responseText)
+                        var cases, death, infection, risk , initiated, completed 
+                        cases = result.cases
+                        death = result.top[i].title
+                        infection = result.infectionRate
+                        document.getElementById("template").innterHTML += document.getElementById("template").innerHTML += "<header> <h2> #" + rank + ": " + title + 
+                        "</h2> </header> <section> <nav>" + "<img src='"+picture+ "' width='225' height='300'>" + "<br>"  + "</nav> <article> <h1> Score: " 
+                        + score + " (" + members + " members) </h1> <h1>First release date: " + start_date + "<h1>Last release date: " +end_date + "</article> </section>"    
+                    }
+                }
+                request.send();
+            }   
+        </script>
+    </head>
+
+    <body>
+        <header class=topHeader> <h1> Top 50 highest rated manga </h1></header>
+        <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
+        <button onclick="document.location = 'cover.html'" id="myBtn2">Home</button>
+
+
+
+        <script>
+        //javascript for button
+        mybutton = document.getElementById("myBtn");
+        myhome = document.getElementById("myBtn2");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() 
+        {
+            scrollFunction()
+        }
+
+        //button shows itself after scrolling past a certain point
+        function scrollFunction() {
+        if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+                }
+        
+        if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+            myhome.style.display = "block";
+        } else {
+            myhome.style.display = "none";
+                }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+        </script>
+        <div id=template>
+            <script>
+            load();
+            </script>
+
+        </div>
+    </body>
+</html>
+<!--
+
+ function getSynopsis(malID)
+            {
+                var altRequest = new XMLHttpRequest();
+                var finalID = "https://api.jikan.moe/v3/anime/" + malID
+                altRequest.open('GET', finalID);
+                var altSynopsis
+                altRequest.onreadystatechange = function() 
+                    {
+                        if (this.readyState===4 && this.status === 200)
+                        {
+                            var altResult = JSON.parse(this.responseText)
+                            altSynopsis = altResult.synopsis
+                            //console.log(altResult.synopsis)
+                            //return altSynopsis
+                        }
+                    }
+                    altRequest.send();
+                    return altSynopsis
+            }
+
+-->
+
